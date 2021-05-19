@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+    frmysqlback:
+        container_name: crontask
+        build:
+            dockerfile: ./Dockerfile
+            context: .
+        restart: unless-stopped
+        environment: 
+            - "SCHEDULE=* * * * *"
+            - "EXEC=/script.sh"
+        volumes:
+            - './script.sh:/script.sh:ro'
+            - ./output:/var/log
